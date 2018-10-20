@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notification_Oasis18</string>
+    <string name="channel_name">Oasis18</string>
+    <string name="channel_description">Oasis18 channel</string>
+</resources>
