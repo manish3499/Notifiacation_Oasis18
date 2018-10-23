@@ -11,11 +11,19 @@ import android.support.v4.app.NotificationManagerCompat
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.app.AlarmManager
+import android.os.SystemClock
+import android.app.PendingIntent
+import android.content.Intent
+import android.media.RingtoneManager
+import android.graphics.drawable.BitmapDrawable
+import android.icu.text.Normalizer.NO
+import android.view.View
+
 
 class MainActivity : AppCompatActivity() {
 
     private val CHANNEL_ID = "ID"
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +32,14 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
-        val notification = Notification()
-        notification.set(this, 5, "title", "small text", "big text", NotificationCompat.PRIORITY_DEFAULT)
-        notification.set(this, 50, "title", "small text", "big text", NotificationManager.IMPORTANCE_HIGH)
+
+        var notification = Notification()
+        notification.instantNotification(this,1,"test1","small text", "big text")
+        notification.instantNotification(this,2,"test2","small text")
+        notification.scheduleNotification(this, 1000, 3, "test3", "small text", "big text")
+        notification.scheduleNotification(this, 2000, 4, "test4", "small text")
+
+
 
 
 
@@ -38,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name)
             val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
@@ -48,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
 
 
 }
